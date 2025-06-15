@@ -1,0 +1,4 @@
+﻿transaction_id,customer_id,product_id,amount,timestamp
+T001,C001,P001,50,20-12-2024 10:00
+T002,C002,P003,300,21-12-2024 16:45
+T003,C001,P002,-120,22-12-2024 08:15

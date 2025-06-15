@@ -1,0 +1,5 @@
+roles:
+  data_engineer:
+    access: [raw_transactions, cleansed_transactions]
+  analyst:
+    access: [cleansed_transactions]

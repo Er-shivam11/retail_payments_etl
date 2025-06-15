@@ -1,0 +1,6 @@
+checks for transactions:
+  - row_count > 0
+  - missing_count(amount) = 0
+  - failed_rows:
+      name: check_negative_amount
+      fail condition: amount < 0

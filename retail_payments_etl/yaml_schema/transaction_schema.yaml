@@ -1,0 +1,11 @@
+schema:
+  - name: transaction_id
+    type: string
+  - name: customer_id
+    type: string
+  - name: amount
+    type: float
+    constraints:
+      min: 0
+  - name: timestamp
+    type: datetime

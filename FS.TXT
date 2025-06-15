@@ -1,0 +1,66 @@
+retail_payments_etl/
+├── data/
+│   ├── customers.csv
+│   ├── product_catalog.csv
+│   └── transactions.csv
+├── src/
+│   ├── load_data.py
+│   ├── transform_data.py
+│   └── enrich_data.py
+├── sql/
+│   ├── create_raw_tables.sql
+│   ├── transform_to_cleansed.sql
+│   └── final_aggregates.sql
+├── yaml_schema/
+│   ├── transaction_schema.yaml
+│   └── customer_schema.yaml
+├── soda_checks/
+│   └── transaction_checks.yaml
+├── rbac/
+│   ├── roles.yaml
+│   └── grant_access.py
+├── tests/
+│   └── test_etl_pipeline.py
+├── README.md
+└── requirements.txt
+
+
+📌 Example Flow:
+Extract from MySQL and an API using Python.
+
+Transform the data using pandas (cleaning), and some SQL joins.
+
+Load the clean data into a Snowflake or PostgreSQL warehouse using to_sql() or COPY INTO.
+
+| Step              | Purpose                                                                                  | Tools from Your Stack                                         | Typical Usage                                                                                                                                                                                                |
+| ----------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **E – Extract**   | Get raw data from APIs, flat files, cloud storage, databases, etc.                       | ✅ **Python**, ✅ **Matillion**, ✅ **YAML configs**             | - Python: Write scripts to extract from REST APIs, SFTP, CSVs<br>- Matillion: Drag-drop components to extract from Snowflake, APIs, S3<br>- YAML: Used for defining pipelines or config in Matillion         |
+| **T – Transform** | Clean, enrich, join, normalize, aggregate the data                                       | ✅ **SQL (Snowflake)**, ✅ **Matillion**, ✅ **Soda**            | - SQL: Write transformation logic in Snowflake<br>- Matillion: Handles transformations visually or using SQL components<br>- Soda: Validates transformed data (quality checks like nulls, schema mismatches) |
+| **L – Load**      | Store transformed data into final tables (e.g., fact/dim tables, analytics-ready layers) | ✅ **Matillion**, ✅ **Snowflake SQL**, ✅ **Python (optional)** | - Matillion: Loads data into target Snowflake tables<br>- Snowflake: Load logic can be written in SQL<br>- Python: Used occasionally if custom load logic is needed (e.g., looping through files)            |
+
+
+
+[ Python / Matillion / YAML ]      -->    [ SQL / Matillion / Soda ]      -->    [ SQL / Matillion / Snowflake ]
+        (Extract)                             (Transform + Validate)                (Load to final tables)
+
+
+✅ Real-Life Scenario
+Imagine you're building a pipeline to process payment transactions:
+
+Extract:
+
+Use Python or Matillion to pull raw CSVs or API data (e.g., bank feeds)
+
+Define sources via YAML in Matillion
+
+Transform:
+
+Write SQL in Snowflake to clean, join with customer tables
+
+Soda runs rules like "transaction amount should not be null", "dates in correct range"
+
+Load:
+
+Matillion moves clean data to final analytics.transaction_summary table
+
+You schedule this daily via Matillion scheduler
